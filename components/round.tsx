@@ -9,7 +9,6 @@ const EllipseAnimation: React.FC = () => {
     a 60,30 0 1,0 0,80
     a 60,30 0 1,0 0,-80"
           stroke="lightgrey"
-          stroke-
           fill="none"
           id="theMotionPath"
         />

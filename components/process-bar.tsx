@@ -44,13 +44,18 @@ const HalfCircleProcessBar: React.FC<IProps> = ({ progress }) => {
           const y2 = (radius - 10) * Math.sin((angle * Math.PI) / 180);
           return (
             <>
-              {!i || i < 4 && (
-                <text x={x} y={y} textAnchor="middle" fontSize="12">{`${
-                  i * 25
-                }%`}</text>
-              )}
+              {!i ||
+                (i < 4 && (
+                  <text
+                    key={`${i}_text`}
+                    x={x}
+                    y={y}
+                    textAnchor="middle"
+                    fontSize="12"
+                  >{`${i * 25}%`}</text>
+                ))}
               <line
-                key={i}
+                key={`${i}_scale`}
                 x1={x1}
                 y1={y1}
                 x2={x2}

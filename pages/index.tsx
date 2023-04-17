@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex-1">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 py-16 space-y-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-8">
           <div className="flex items-center space-x-2">
             <h1 className="text-2xl font-medium">前端开发测试</h1>
           </div>

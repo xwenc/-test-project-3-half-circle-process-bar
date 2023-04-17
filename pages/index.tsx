@@ -95,7 +95,7 @@ export default function Home() {
             <div>
               <p>
                 这个功能可以拆成2部分, 1. 椭圆的运动轨迹, 2. 点在椭圆上的运动.
-                我使用了SVG来实现这个功能, 先试用ellipse画一个椭圆,
+                我使用了SVG来实现这个功能, 先用Path画一个椭圆轨迹,
                 然后使用animateMotion来实现椭圆的运动轨迹,来实现点在椭圆上的运动.
               </p>
             </div>

@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import ProgressTracker from "../components/process-bar";
 
 export default function Home() {
   return (
@@ -13,6 +12,7 @@ export default function Home() {
       <main className="flex-1">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold underline">Hello world!</h1>
+          <ProgressTracker progress={85} />
         </div>
       </main>
     </div>

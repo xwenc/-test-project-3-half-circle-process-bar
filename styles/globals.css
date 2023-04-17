@@ -27,4 +27,7 @@ a {
     color: white;
     background: black;
   }
+  p {
+    @apply leading-relaxed
+  }
 }

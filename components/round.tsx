@@ -1,47 +1,26 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
-interface IProps {
-  progress: number;
-}
-
-const ProgressTracker: FC<IProps> = ({ progress }) => {
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-
-  const radiusX = 200; // x轴半径
-  const radiusY = 100; // y轴半径
-  const centerX = 250; // 圆心x坐标
-  const centerY = 150; // 圆心y坐标
-  const circumference = 2 * Math.PI * radiusX; // 椭圆周长
-
-  useEffect(() => {
-    const angle = (progress / 100) * Math.PI * 2 - Math.PI / 2; // 根据进度计算角度
-    const x = centerX + radiusX * Math.cos(angle); // 根据角度计算x坐标
-    const y = centerY + radiusY * Math.sin(angle); // 根据角度计算y坐标
-    setX(x);
-    setY(y);
-  }, [progress, centerX, centerY, radiusX, radiusY]);
-
+const EllipseAnimation: React.FC = () => {
   return (
-    <svg width="500" height="300">
-      <path
-        d={`M${centerX},${centerY - radiusY} A${radiusX},${radiusY} 0 ${
-          progress > 50 ? 1 : 0
-        },1 ${x},${y}`}
-        stroke="#ccc"
-        strokeWidth="10"
-        fill="none"
-      />
-      {x && y && (
-        <circle
-          cx={x}
-          cy={y}
-          r="5"
-          fill="#f00"
+    <>
+      <svg viewBox="0 0 200 200">
+        <path
+          d="M 100,50
+    a 60,30 0 1,0 0,80
+    a 60,30 0 1,0 0,-80"
+          stroke="lightgrey"
+          stroke-
+          fill="none"
+          id="theMotionPath"
         />
-      )}
-    </svg>
+        <circle r="5" fill="#FF4500">
+          <animateMotion dur="6s" repeatCount="indefinite">
+            <mpath xlinkHref="#theMotionPath" />
+          </animateMotion>
+        </circle>
+      </svg>
+    </>
   );
 };
 
-export default ProgressTracker;
+export default EllipseAnimation;

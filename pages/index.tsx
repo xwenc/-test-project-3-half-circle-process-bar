@@ -1,7 +1,9 @@
 import Head from "next/head";
 import ProgressTracker from "../components/process-bar";
-
+import { useState, useEffect } from "react";
 export default function Home() {
+  const [process, setProcess] = useState(35);
+
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
       <Head>
@@ -10,9 +12,73 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex-1">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
-          <ProgressTracker progress={85} />
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 py-16">
+          <div className="flex items-center space-x-2 mb-10">
+            <h1 className="text-2xl font-medium">前端开发测试</h1>
+          </div>
+
+          <section className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <h3 className="text-lg font-medium">1. 带百分比的圆弧形进度条</h3>
+              <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+                3 Hours
+              </span>
+            </div>
+            <div className="w-[300px] h-[150px]">
+              <ProgressTracker progress={process} />
+            </div>
+            <div className="pt-4 max-w-[80px]">
+              <input
+                type="number"
+                name="number"
+                min={0}
+                max={100}
+                value={process}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  if (!value) {
+                    setProcess(0);
+                    return;
+                  }
+                  if (value >= 0 && value <= 100) {
+                    setProcess(value);
+                  }
+                }}
+                className="block w-full rounded-md border p-1.5 text-gray-900 border-gray-300 focus:ring-0"
+              />
+            </div>
+            <div>
+              <p>
+                这个功能拆开的话包括3个部分: 1. 圆弧形进度条 2.
+                进度条上的百分比, 3. 进度条上的刻度. 我使用了SVG来实现这个功能,
+                SVG是一种基于XML的矢量图形格式, 可以用来描述二维图形和三维图形.
+                首先创建两个Path, 一个是进度条的底色, 一个是进度条的进度.
+                然后使用stroke-dasharray和stroke-dashoffset属性来实现进度条的百分比效果.
+                最后使用text元素来实现进度条上的刻度.
+              </p>
+            </div>
+            <div>
+              <h5>参考资料：</h5>
+              <ul>
+                <li>
+                  <a
+                    className="text-blue-400 hover:underline"
+                    href="https://developer.mozilla.org/zh-CN/docs/Web/SVG"
+                  >
+                    SVG MDN DOCS
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-blue-400 hover:underline"
+                    href="https://juejin.cn/post/6844903798444392455"
+                  >
+                    SVG：理解stroke-dasharray和stroke-dashoffset属性
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
         </div>
       </main>
     </div>

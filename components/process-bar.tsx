@@ -1,47 +1,70 @@
-import React, { FC, useState, useEffect } from 'react';
-
 interface IProps {
   progress: number;
 }
-
-const ProgressTracker: FC<IProps> = ({ progress }) => {
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-
-  const radiusX = 200; // x轴半径
-  const radiusY = 100; // y轴半径
-  const centerX = 250; // 圆心x坐标
-  const centerY = 150; // 圆心y坐标
-  const circumference = 2 * Math.PI * radiusX; // 椭圆周长
-
-  useEffect(() => {
-    const angle = (progress / 100) * Math.PI * 2 - Math.PI / 2; // 根据进度计算角度
-    const x = centerX + radiusX * Math.cos(angle); // 根据角度计算x坐标
-    const y = centerY + radiusY * Math.sin(angle); // 根据角度计算y坐标
-    setX(x);
-    setY(y);
-  }, [progress, centerX, centerY, radiusX, radiusY]);
+const HalfCircleProcessBar: React.FC<IProps> = ({ progress }) => {
+  const radius = 100; // 半径
+  const strokeWidth = 10; // 线条宽度
+  const normalizedRadius = radius - strokeWidth / 2; // 标准化半径
+  const circumference = normalizedRadius * Math.PI; // 半圆形周长
+  const strokeDashoffset = circumference - (progress / 100) * circumference; // 半圆形路径偏移量
 
   return (
-    <svg width="500" height="300">
+    <svg viewBox={`-20 -20 ${radius * 2 + 20} ${radius + 20}`}>
       <path
-        d={`M${centerX},${centerY - radiusY} A${radiusX},${radiusY} 0 ${
-          progress > 50 ? 1 : 0
-        },1 ${x},${y}`}
         stroke="#ccc"
-        strokeWidth="10"
         fill="none"
+        strokeWidth={strokeWidth}
+        d={`M ${
+          strokeWidth / 2
+        },${radius} a ${normalizedRadius},${normalizedRadius} 0 0 1 ${
+          normalizedRadius * 2
+        },0`}
       />
-      {x && y && (
-        <circle
-          cx={x}
-          cy={y}
-          r="5"
-          fill="#f00"
-        />
-      )}
+      <path
+        stroke="#FF4500"
+        fill="none"
+        strokeWidth={strokeWidth}
+        strokeDasharray={`${circumference} ${circumference}`}
+        style={{ strokeDashoffset }}
+        d={`M ${
+          strokeWidth / 2
+        },${radius} a ${normalizedRadius},${normalizedRadius} 0 0 1 ${
+          normalizedRadius * 2
+        },0`}
+      />
+      <g transform={`translate(${radius},${radius})`}>
+        {[...Array(5)].map((_, i) => {
+          const angle = -180 + i * 22.5;
+          const angleLarge = -180 + i * 45;
+          const x = (radius + 5) * Math.cos((angleLarge * Math.PI) / 180);
+          const y = (radius + 5) * Math.sin((angleLarge * Math.PI) / 180);
+          const x1 = radius * Math.cos((angle * Math.PI) / 180);
+          const y1 = radius * Math.sin((angle * Math.PI) / 180);
+          const x2 = (radius - 10) * Math.cos((angle * Math.PI) / 180);
+          const y2 = (radius - 10) * Math.sin((angle * Math.PI) / 180);
+          return (
+            <>
+              {!i || i < 4 && (
+                <text x={x} y={y} textAnchor="middle" fontSize="12">{`${
+                  i * 25
+                }%`}</text>
+              )}
+              <line
+                key={i}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#FFF"
+                strokeWidth={2}
+                transform={`rotate(${i * 22.5})`}
+              />
+            </>
+          );
+        })}
+      </g>
     </svg>
   );
 };
 
-export default ProgressTracker;
+export default HalfCircleProcessBar;

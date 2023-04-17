@@ -1,1 +1,1 @@
-# -test-project-3-half-circle-process-bar
+# test-project-3-half-circle-process-bar
